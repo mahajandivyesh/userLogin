@@ -1,27 +1,34 @@
 package com.dvsapp.login.resource;
 
+
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.event.annotation.BeforeTestExecution;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.dvsapp.login.dto.UserDTO;
+import com.dvsapp.login.dto.UserJsonPojo;
 import com.dvsapp.login.service.IUserService;
 import com.dvsapp.login.util.CommonResponse;
+import com.google.gson.Gson;
 
 @RunWith(SpringRunner.class)
+@ContextConfiguration(classes = UserJsonPojo.class)
 @SpringBootTest
+@TestPropertySource(locations = "classpath:/inputparameter.properties")
 public class UserResourceTest {
 
 	
@@ -30,6 +37,25 @@ public class UserResourceTest {
 
 	@InjectMocks
 	private UserResource userResource;
+	
+
+	@Autowired
+	private UserJsonPojo userJsonPojo;
+	
+	@Test
+	public void testUserPojo() {
+		System.out.println(userJsonPojo.getJsonProperties());
+		
+		Gson gson = new Gson();
+		  
+        // Converting json to object
+        // first parameter should be prpreocessed json
+        // and second should be mapping class
+		UserJsonPojo pojo
+            = gson.fromJson(userJsonPojo.getJsonProperties(), UserJsonPojo.class);
+		
+		System.out.println(pojo);
+	}
 	
 	@Test
 	public void testLoginUser() {

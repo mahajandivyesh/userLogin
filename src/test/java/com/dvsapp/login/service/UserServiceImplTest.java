@@ -1,6 +1,6 @@
 package com.dvsapp.login.service;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals; 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
@@ -26,6 +26,7 @@ class UserServiceImplTest {
 	
 	@Mock
 	private IUserRepository  iUserRepository;
+	
 	
 	
 	@Test
@@ -77,5 +78,7 @@ class UserServiceImplTest {
 		
 		assertEquals(null, actual);
 	}
+	
+	
 
 }
